@@ -1,0 +1,97 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+products
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+  .prod-container{
+    display:flex;
+    flex-wrap: wrap;
+    
+    .card{
+      margin:10px;
+    }
+
+    .card:hover{
+      transform: scale(1.05);
+    }
+
+    h4{
+      width:200px;
+    }
+
+    .card-text{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .buttons{
+      justify-content: center;
+      /* align-items: center; */
+      padding-left: 20px;
+    }
+
+    button{
+      padding: 1px;
+      border-radius: 10%;
+    }
+    
+    button:hover{
+      transform: scale(1.1);
+    }
+
+  }
+
+</style>
+
+<section id="products">
+  <div class="prod-container">
+    {% for p in product_list %}                                      <!--product_list is defined in djangos thing-->
+    <!-- Code for single card starts here -->
+    <div class="card">
+      
+        <div class="card-img">
+          <a href="{% url 'p_details' p.pk %}">                            <!--p_details is defined in urls.py-->       
+            <img src="{{p.pic}}" alt="" width="200px" height="250px">
+          </a>
+        </div>
+
+        <div class="card-text">
+              <a href="{% url 'p_details' p.pk %}">                 <!--this url is to open the details of the product wherever you click in the cart--> 
+                <h5 class="card-title">{{p.name}}</h5>
+              </a>
+              <h5>Price : ₹<ins>{{p.price}}</ins></h5>
+
+              {% if user.is_authenticated %}   
+              {% if not user.is_staff %}
+              
+
+              <a href="{% url 'cart:add_to_cart' p.id %}" class="btn btn-primary">Add To Cart</a>
+              {% else %}
+
+              <span style="color: black;">Qty:{{p.stock}}</span>
+              {% endif %}
+              {% else %}
+
+              <a href="{% url 'login' %}" class="btn btn-primary">Add To Cart</a>
+
+              {% endif %}
+
+            
+        </div>
+
+    </div>
+    <!-- Code for a single card ends here -->
+    {% endfor %}
+  </div>
+  
+  </section>
+
+
+{% endblock %}

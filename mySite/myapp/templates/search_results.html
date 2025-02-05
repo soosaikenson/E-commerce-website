@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Search results for > {{ query }}
+{% endblock %}
+
+{% block search-value %}
+  {{query}}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  p {
+    color: black;
+  }
+  .read-more {
+    cursor: pointer;
+    color: blue;
+    margin-left: 5px;
+    display: inline; /* Ensure it stays inline */
+  }
+  .card-container {
+    margin: 0 auto; /* Center the container */
+    max-width: 1600px; /* Set a maximum width for better alignment */
+
+  }
+  .card {
+    width: 95%; /* Slightly increase the width */
+    max-width: 400px; /* Increase max width for larger cards */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
+    margin: 0 auto; /* Center the card */
+
+  }
+
+  .description {
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    max-width: 100%; /* Adjust this percentage as needed */
+}
+</style>
+
+{% if items == 0 %}
+<h2>
+  <p class="query">{{ query }}</p> not found !!!
+</h2>
+{% else %}
+<h2>
+  Search results for  <p class="query">{{ query }}</p>
+  <p>{{items}} results.</p>
+</h2>
+
+
+<section id="products">
+  <div class="container">
+    {% for p in prods %}
+    <!-- Code for single card starts here -->
+    <div class="card" >
+      <img src="{{p.pic.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <a href="{% url 'p_details' p.pk %}">
+          <h5 class="card-title">{{p.name}}</h5>
+        </a>
+        <p>Rs.{{p.price}}</p>
+        <a href="#" class="btn btn-primary">Add To Cart</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

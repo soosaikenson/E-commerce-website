@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    My Orders
+{% endblock %}
+
+{% block content %}
+<h1>My Orders</h1>
+
+{% if orders %}
+    {% for order in orders %}
+        <div class="order-card mb-4 border p-3">
+            <h3>Order #{{ order.id }}</h3>
+            <p><strong>Date Placed:</strong> {{ order.order_date }}</p>
+            <p><strong>Status:</strong> {{ order.status }}</p>
+            <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+            <p><strong>Razorpay Order ID:</strong> {{ order.razorpay_order_id }}</p>
+
+            <!-- Displaying Address -->
+            <h4>Shipping Address:</h4>
+            {% if order.address %}
+                <p><strong>Address Line 1:</strong> {{ order.address.address_line1 }}</p>
+                <p><strong>Address Line 2:</strong> {{ order.address.address_line2 }}</p>
+                <p><strong>City:</strong> {{ order.address.city }}</p>
+                <p><strong>State:</strong> {{ order.address.state }}</p>
+                <p><strong>ZIP Code:</strong> {{ order.address.zip_code }}</p>
+                <p><strong>Country:</strong> {{ order.address.country }}</p>
+            {% else %}
+                <p>No shipping address available.</p>
+            {% endif %}
+
+            <h4>Order Details:</h4>
+            <ul>
+                {% for item in order.order_details.all %}
+                    <li>
+                        <strong>Product:</strong> {{ item.order_item.name }} - 
+                        <strong>Quantity:</strong> {{ item.quantity }} - 
+                        <strong>Price:</strong> ₹{{ item.price }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No orders found!</p>
+{% endif %}
+{% endblock %}
