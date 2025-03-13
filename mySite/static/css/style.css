@@ -67,7 +67,7 @@ body {
 
 
         .carousel {
-            height: 300px;
+            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -140,7 +140,7 @@ body {
 
         }      
         .about{
-            background-color: aqua;
+            /* background-color: aqua; */
             display: flex;
             flex-wrap: nowrap;
             padding: 50px;

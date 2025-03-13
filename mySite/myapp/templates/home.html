@@ -42,15 +42,47 @@
       </div>
 </section>
 
-<section id = "products" style="background-color: black; color: white;">
+<!-- <section id = "products" style="background-color: black; color: white;">
   <div>
     <ul>
-      {% for p in prods %}                                      <!--prods is defined in views.py inside context-->
-      <li>{{p.name}} -- Rs. {{p.price}}</li>                    <!--prods contains the collection of all objects-->
+      {% for p in prods %}                                      prods is defined in views.py inside context
+      <li>{{p.name}} -- Rs. {{p.price}}</li>                    prods contains the collection of all objects
       {% endfor %}
     </ul>
   </div>
-</section>
+</section> -->
+
+<br><br><br>
+
+<div class="container-fluid">
+  <table class="table" data-bs-theme="dark" bg-dark style="">
+      <thead>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Thumbnail</th>
+          <th>Stock</th>
+          <th></th>
+      </thead>
+      <tbody>
+      {% for product in prods %}
+          <tr>
+              <td>{{product.id}}</td>
+              <td>
+                <a href="{% url 'p_details' product.pk %}">
+                {{product.name}}
+                </a>
+              </td>
+              <td>{{product.price}}</td>
+              <td><img src="{{product.pic}}" height="20px" alt=""></td>
+              <td>{{product.stock}}</td>
+              <td><button class="btn btn-primary">Add to Cart</button></td>
+          </tr>
+      {% endfor %}
+      </tbody>
+
+  </table>
+</div>
     
 
 {% endblock %}

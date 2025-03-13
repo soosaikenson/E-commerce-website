@@ -12,5 +12,5 @@ class Product(models.Model):
     pic = models.ImageField(upload_to="products/", null = True)
 
     def __str__(self):                 #to show the object in the Django admin site
-        return self.name
+        return f'{self.name} - {self.price}'
 

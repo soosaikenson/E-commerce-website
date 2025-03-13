@@ -258,12 +258,12 @@
               <strong>Grand total : <span id="overall-total">  Rs.{{ total_price }} </span>  </strong>
           </div>
           {% if cart_items %}
-      <form method="post" action="{% url 'orders:create_order' %}">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
-      </form>
-  {% endif %}
-  </div>
+             <form method="post" action="{% url 'orders:create_order' %}">
+             {% csrf_token %}
+             <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+             </form>
+          {% endif %}
+       </div>
       
       {% else %}
       <p>Your cart is empty.</p>
